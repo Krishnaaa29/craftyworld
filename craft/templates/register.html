@@ -134,58 +134,78 @@
                     <div class="login_part_form">
                         <div class="login_part_form_iner">
                             <h3>Register Now</h3>
-                            <form class="row contact_form" action="" method="POST" novalidate="novalidate">
-                                <div class="col-md-12 form-group p_star">
-                                    {{ form.username.label(class="form-control", placeholder="Username") }}
-                                    {% if form.username.errors %}
-                                        {{ form.username(class="form-control is_invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.username.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.username(class="form-control") }}
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor%}
                                     {% endif %}
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    {{ form.email.label(class="form-control", placeholder="Email") }}
-                                    {% if form.email.errors %}
-                                        {{ form.email(class="form-control is_invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.email.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.email(class="form-control") }}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                     {{ form.password.label(class="form-control", placeholder="Password") }}
-                                     {% if form.password.errors %}
-                                        {{ form.password(class="form-control is_invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.password.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.password(class="form-control") }}
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    {{ form.confirm_password.label(class="form-control", placeholder="Confirm Password") }}
-                                    {% if form.confirm_password.errors %}
-                                        {{ form.confirm_password(class="form-control is_invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.confirm_password.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.confirm_password(class="form-control") }}
-                                    {% endif %}
+                                {% endwith %}
+                            <form class="form-contact contact_form" action="" method="POST">
+                                {{ form.hidden_tag() }}
+                                <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        {{ form.username.label(class="") }}
+                                        {% if form.username.errors %}
+                                            {{ form.username(class="form-control border border-danger rounded") }}
+                                            <div class="text-danger">
+                                                {% for error in form.username.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.username(class="form-control border border-secondary rounded", placeholder="Your Username") }}
+                                        {% endif %} 
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                        {{ form.email.label(class="") }}
+                                        {% if form.email.errors %}
+                                            {{ form.email(class="form-control border border-danger rounded") }}
+                                            <div class="text-danger">
+                                                {% for error in form.email.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.email(class="form-control border border-secondary rounded", placeholder="Your Email") }}
+                                        {% endif %} 
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                        {{ form.password.label(class="") }}
+                                        {% if form.password.errors %}
+                                            {{ form.password(class="form-control border border-danger rounded") }}
+                                            <div class="text-danger">
+                                                {% for error in form.password.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.password(class="form-control border border-secondary rounded", placeholder="Your Password") }}
+                                        {% endif %} 
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                        {{ form.confirm_password.label(class="") }}
+                                        {% if form.confirm_password.errors %}
+                                            {{ form.confirm_password(class="form-control border border-danger rounded") }}
+                                            <div class="text-danger">
+                                                {% for error in form.confirm_password.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.confirm_password(class="form-control border border-secondary rounded", placeholder="Confirm Password") }}
+                                        {% endif %} 
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="col-md-12 form-group">
                                    {{ form.submit(class="btn_3") }}

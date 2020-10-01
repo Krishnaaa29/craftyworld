@@ -4,13 +4,9 @@ from craft.forms import RegistrationForm, LoginForm
 from craft.models import Users
 
 @app.route("/")
-
-
-@app.route("/home")
 def home():
     return render_template('index.html')
 
- 
 @app.route("/about")
 def about():
     return render_template('about.html')
@@ -21,17 +17,12 @@ def contact():
 
 @app.route("/product_list")
 def product_list():
-
     return render_template('product_list.html')
-
-
 
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
-
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -41,7 +32,7 @@ def register():
         user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Your Account has been created! You are now able to log in', 'success')
+        flash(f'Your Account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
