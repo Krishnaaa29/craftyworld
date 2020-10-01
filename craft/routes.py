@@ -2,6 +2,7 @@ from flask import render_template, url_for, request, redirect, session, flash, r
 from craft import app, db, bcrypt
 from craft.forms import RegistrationForm, LoginForm
 from craft.models import Users
+from flask_login import login_user, current_user, logout_user
 
 @app.route("/")
 def home():
@@ -21,11 +22,13 @@ def product_list():
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
-    return redirect(url_for('login'))
+    logout_user()
+    return redirect(url_for('home'))
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -38,5 +41,14 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
+    if form.validate_on_submit():
+        user = Users.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            return redirect(url_for('home'))
+        else:
+            flash(f'Login Unsuccessful, Please check emailid and password','danger')
     return render_template('login.html', title='Login', form=form)
