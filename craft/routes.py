@@ -2,7 +2,7 @@ from flask import render_template, url_for, request, redirect, session, flash, r
 from craft import app, db, bcrypt
 from craft.forms import RegistrationForm, LoginForm
 from craft.models import Users
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 def home():
@@ -17,6 +17,7 @@ def contact():
     return render_template('contact.html')
 
 @app.route("/product_list")
+@login_required
 def product_list():
     return render_template('product_list.html')
 
