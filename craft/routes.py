@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect
 from craft import app, db, bcrypt
-from craft.forms import RegistrationForm, LoginForm
+from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from craft.models import Users
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -53,3 +53,20 @@ def login():
         else:
             flash(f'Login Unsuccessful, Please check emailid and password','danger')
     return render_template('login.html', title='Login', form=form)
+
+@app.route("/youraccount", methods=['GET', 'POST'])
+@login_required
+def youraccount():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash(f'Your Account has been Updated!', 'success')
+        return redirect(url_for('youraccount'))
+    elif request.method =='GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    return render_template('youraccount.html', titl='Update', form=form)
+
