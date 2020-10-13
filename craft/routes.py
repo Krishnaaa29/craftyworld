@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect
 from craft import app, db, bcrypt
 from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm
-from craft.models import Users
+from craft.models import Users,Products
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
@@ -69,4 +69,22 @@ def youraccount():
         form.email.data = current_user.email
 
     return render_template('youraccount.html', titl='Update', form=form)
+
+
+@app.route("/adminindex")
+def adminindex():
+    return render_template('adminindex.html')
+
+@app.route("/adminlogin")
+def adminlogin():
+    return render_template('adminlogin.html')
+
+
+
+   
+    
+
+
+
+
 
