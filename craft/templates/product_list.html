@@ -1,7 +1,7 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
 
-    <!-- breadcrumb part start-->
+     <!-- breadcrumb part start-->
     <section class="breadcrumb_part">
         <div class="container">
             <div class="row">
@@ -14,193 +14,27 @@
         </div>
     </section>
     <!-- breadcrumb part end-->
+    <div class="container">
+        <div class="row">
+        {% for products in products %}
+            <div class="col-md-3">
+                <div class="card">
+                    <img srs="{{products.picture }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ products.name }}</h3>
+                        <p class="crad-text">{{ products.price }}</p>
+
+                        <a href="{{ url_for('order') }}" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div> 
+        
+
+
+   
+
     
-    <!-- product list part start-->
-    <section class="product_list section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="product_sidebar">
-                        
-                        <div class="single_sedebar">
-                            <div class="select_option">
-                                <div class="select_option_list">Category <i class="right fas fa-caret-down"></i> </div>
-                                <div class="select_option_dropdown">
-                                    <p><a href="#">Category 1</a></p>
-                                    <p><a href="#">Category 2</a></p>
-                                    <p><a href="#">Category 3</a></p>
-                                    <p><a href="#">Category 4</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single_sedebar">
-                            <div class="select_option">
-                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>
-                                <div class="select_option_dropdown">
-                                    <p><a href="#">Type 1</a></p>
-                                    <p><a href="#">Type 2</a></p>
-                                    <p><a href="#">Type 3</a></p>
-                                    <p><a href="#">Type 4</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="product_list">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/download (3).jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Wood Wall Hanging Showpiece</a> </h3>
-                                    <p>From $170</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/peacock1.jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Wooden Dancing Peacock</a> </h3>
-                                    <p>From $150</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/waallnut boat.jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Walnut Boat Craft</a> </h3>
-                                    <p>From $200</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/polymer clay craft.jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Polymer Clay Craft</a> </h3>
-                                    <p>From $250</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/download (2).jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Wall Clock</a> </h3>
-                                    <p>From $20</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ url_for('static', filename='img/img-2.jpg') }}" alt="#" class="img-fluid">
-                                    <h3> <a href="single-product.html">Rock Painting</a> </h3>
-                                    <p>From $300</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="load_more_btn text-center">
-                            <a href="#" class="btn_3">Load More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- product list part end-->
-    
-    <!-- client review part here -->
-    <section class="client_review">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="client_review_slider owl-carousel">
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{{ url_for('static', filename='img/client.png') }}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{{ url_for('static', filename='img/client_1.png') }}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{{ url_for('static', filename='img/client_2.png') }}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- client review part end -->
-
-    <!-- feature part here -->
-    <section class="feature_part section_padding">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-6">
-                    <div class="feature_part_tittle">
-                        <h3>Credibly innovate granular
-                        internal or organic sources
-                        whereas standards.</h3>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="feature_part_content">
-                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources. Credibly innovate granular internal or “organic” sources whereas high standards in web-readiness.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_feature_part">
-                        <img src="{{ url_for('static', filename='img/icon/feature_icon_1.svg') }}" alt="#">
-                        <h4>Credit Card Support</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_feature_part">
-                        <img src="{{ url_for('static', filename='img/icon/feature_icon_2.svg') }}" alt="#">
-                        <h4>Online Order</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_feature_part">
-                        <img src="{{ url_for('static', filename='img/icon/feature_icon_3.svg') }}" alt="#">
-                        <h4>Free Delivery</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single_feature_part">
-                        <img src="{{ url_for('static', filename='img/icon/feature_icon_4.svg') }}" alt="#">
-                        <h4>Product with Gift</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- feature part end -->
-
-    <!-- subscribe part here -->
-    <section class="subscribe_part section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="subscribe_part_content">
-                        <h2>Get promotions & updates!</h2>
-                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources credibly innovate granular internal .</p>
-                        <div class="subscribe_form">
-                            <input type="email" placeholder="Enter your mail">
-                            <a href="#" class="btn_1">Subscribe</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- subscribe part end -->
-
 {% endblock %}

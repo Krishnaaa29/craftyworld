@@ -29,12 +29,13 @@ class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    picture = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(60), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String, nullable=False)
 
     def __repr__(self):
-        return f"Products('{self.name}', '{self.price}','{self.description}','{self.stock}','{self.category}')"
+        return f"Products('{self.name}', '{self.price}', '{self.picture}','{self.description}','{self.stock}','{self.category}')"
        
 admin.add_view(ModelView(Users,db.session))
 admin.add_view(ModelView(Products,db.session))

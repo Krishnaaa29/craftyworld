@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect
 from craft import app, db, bcrypt
-from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm, ProductsForm
 from craft.models import Users,Products
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -16,10 +16,12 @@ def about():
 def contact():
     return render_template('contact.html')
 
-@app.route("/product_list")
+@app.route("/product_list", methods=['GET', 'POST'])
 @login_required
 def product_list():
-    return render_template('product_list.html')
+    form = ProductsForm()
+    products = Products.query.all()
+    return render_template('product_list.html', title='Product', products=products)
 
 @app.route('/logout')
 def logout():
@@ -83,7 +85,10 @@ def adminlogin():
 
    
     
-
+@app.route("/order")
+@login_required
+def order():
+    return render_template('order.html')
 
 
 
