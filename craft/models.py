@@ -35,7 +35,24 @@ class Products(db.Model):
     category = db.Column(db.String, nullable=False)
 
     def __repr__(self):
-        return f"Products('{self.name}', '{self.price}', '{self.picture}','{self.description}','{self.stock}','{self.category}')"
+        return f"Products('{self.name}', '{self.price}','{self.picture}','{self.description}','{self.stock}','{self.category}')"
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    products_id = db.Column(db.Integer)
+    users_id = db.Column(db.Integer)
+    name = db.Column(db.String(60), nullable=False)
+    email = db.Column(db.String(60), nullable=False)
+    address_line1 = db.Column(db.String(60), nullable=False)
+    address_line2 = db.Column(db.String(60), nullable=False)
+    pincode = db.Column(db.Integer, nullable=False)
+    city = db.Column(db.String(60), nullable=False)
+    state = db.Column(db.String(60), nullable=False)
+    country = db.Column(db.String, nullable=False)
+    mobile = db.Column(db.Integer, nullable=False)
+    def __repr__(self):
+        return f"Order('{self.products_id}','{self.users_id}','{self.name}', '{self.email}','{self.address_line1}','{self.address_line2}','{self.pincode}','{self.city},'{self.state},'{self.country},'{self.mobile}')"
        
 admin.add_view(ModelView(Users,db.session))
 admin.add_view(ModelView(Products,db.session))
+admin.add_view(ModelView(Order,db.session))

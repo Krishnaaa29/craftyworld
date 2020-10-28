@@ -1,6 +1,7 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
 
+                           
      <!-- breadcrumb part start-->
     <section class="breadcrumb_part">
         <div class="container">
@@ -17,14 +18,14 @@
     <div class="container">
         <div class="row">
         {% for products in products %}
+        
             <div class="col-md-3">
                 <div class="card">
-                    <img srs="{{products.picture }}" class="card-img-top" alt="...">
+                    <img srs="{{ url_for('static', filename='img/product/') }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h3 class="card-title">{{ products.name }}</h3>
                         <p class="crad-text">{{ products.price }}</p>
-
-                        <a href="{{ url_for('order') }}" class="btn btn-primary">Buy Now</a>
+                        <a href="{{ url_for('order',pid=products.id) }}" class="btn btn-primary">Buy Now</a>
                     </div>
                 </div>
             </div>

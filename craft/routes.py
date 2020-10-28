@@ -1,8 +1,9 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect
 from craft import app, db, bcrypt
-from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm, ProductsForm
-from craft.models import Users,Products
+from craft.forms import RegistrationForm, LoginForm, UpdateAccountForm, ProductsForm, OrderForm
+from craft.models import Users,Products,Order
 from flask_login import login_user, current_user, logout_user, login_required
+
 
 @app.route("/")
 def home():
@@ -19,7 +20,6 @@ def contact():
 @app.route("/product_list", methods=['GET', 'POST'])
 @login_required
 def product_list():
-    form = ProductsForm()
     products = Products.query.all()
     return render_template('product_list.html', title='Product', products=products)
 
@@ -81,15 +81,31 @@ def adminindex():
 def adminlogin():
     return render_template('adminlogin.html')
 
-
-
-   
-    
-@app.route("/order")
+@app.route("/order/<int:pid>", methods=['GET', 'POST'])
 @login_required
-def order():
-    return render_template('order.html')
+def order(pid):
+    id = pid 
+    form = OrderForm()
+    if form.validate_on_submit():
+     
+        # insertion operation
+        order =  Order(products_id=id,users_id=current_user.id,name=form.name.data, email=form.email.data, address_line1=form.address_line1.data, address_line2=form.address_line2.data, pincode=form.pincode.data, city=form.city.data, state=form.state.data, country=form.country.data, mobile=form.mobile.data)
+        # if req is post,then insert title and content into db,for dat we assign those in new content
+        try:
+            db.session.add(order) 
+            db.session.commit() 
+            flash(f'Your Order has been submitted', 'success')                       
+            return redirect(url_for('view')) #after successful insertion redirect back to home page
+        except:
+            flash(f'There is an issue', 'danger')
+            return redirect(url_for('product_list'))
+    else:
+        #task = Order.query.all()
+        products = Products.query.filter_by(id=pid).first()
+        return render_template('order.html', products=products, form=form)
+            
 
-
-
+@app.route("/view")
+def view():
+    return render_template('view.html')
 

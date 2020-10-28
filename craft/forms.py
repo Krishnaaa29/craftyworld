@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from craft.models import Users,Products
+from craft.models import Users,Products,Order
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -62,6 +62,20 @@ class ProductsForm(FlaskForm):
         product = Products.query.filter_by(name=name.data).first()
         if product:
             raise ValidationError('This name is taken, please choose a different one')
+
+class OrderForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    address_line1 = StringField('Address_line1', validators=[DataRequired(), Length(min=2, max=20)])
+    address_line2 = StringField('Address_line2', validators=[DataRequired(), Length(min=2, max=20)])
+    pincode = StringField('Pincode', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
+    state = StringField('State', validators=[DataRequired()])
+    country = StringField('Country', validators=[DataRequired()])
+    mobile = StringField('Mobile', validators=[DataRequired(),Length(min=10, max=12)])
+
+    submit = SubmitField('Order')
+    
 
 
 
