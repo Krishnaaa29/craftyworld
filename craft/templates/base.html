@@ -34,7 +34,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="{{ url_for('static', filename='img/logo1.png') }}" alt="logo"> </a>
+                        <a class="navbar-brand" href="index.html"> <img src="{{ url_for('static', filename='img/crafty.png') }}" alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -104,15 +104,12 @@
                         <div class="col-lg-8">
                             <div class="footer_menu">
                                 <div class="footer_logo">
-                                    <a href="index.html"><img src="{{ url_for('static', filename='img/logo1.png') }}" alt="#"></a>
+                                    <a href="index.html"><img src="{{ url_for('static', filename='img/crafty.png') }}" alt="#"></a>
                                 </div>
                                 <div class="footer_menu_item">
-                                    <a href="index.html">Home</a>
-                                    <a href="about.html">About</a>
-                                    <a href="product_list.html">Products</a>
-                                    <a href="#">Pages</a>
-                                    <a href="blog.html">Blog</a>
-                                    <a href="contact.html">Contact</a>
+                                    <a href="{{url_for('home')}}">Home</a>
+                                    <a href="{{url_for('about')}}">About</a>
+                                    <a href="{{url_for('contact')}}">Contact</a>
                                 </div>
                             </div>
                         </div>

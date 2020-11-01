@@ -86,11 +86,13 @@ def adminlogin():
 def order(pid):
     id = pid 
     form = OrderForm()
+    products = Products.query.filter_by(id=id).first()
     if form.validate_on_submit():
      
         # insertion operation
         order =  Order(products_id=id,users_id=current_user.id,name=form.name.data, email=form.email.data, address_line1=form.address_line1.data, address_line2=form.address_line2.data, pincode=form.pincode.data, city=form.city.data, state=form.state.data, country=form.country.data, mobile=form.mobile.data)
         # if req is post,then insert title and content into db,for dat we assign those in new content
+        products.stock = products.stock-1
         try:
             db.session.add(order) 
             db.session.commit() 
