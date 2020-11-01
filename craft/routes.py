@@ -109,3 +109,20 @@ def order(pid):
 def view():
     return render_template('view.html')
 
+
+@app.route("/orderview")
+def orderview():
+    orders = Order.query.filter_by(users_id=current_user.id).all()
+    return render_template('orderview.html', orders=orders)
+
+@app.route("/order/<int:order_id>/delete", methods=['POST'])
+@login_required
+def orderdelete(order_id):
+    orders = Order.query.get_or_404(order_id)
+    if orders.users_id != current_user.id:
+        abort(403)
+    db.session.delete(orders)
+    db.session.commit()
+    flash('Your Order has been deleted!', 'success')
+    return redirect(url_for('home'))
+    flash('Your Order has been deleted!', 'success')

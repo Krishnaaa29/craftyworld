@@ -1,5 +1,14 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
+ {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor%}
+                                    {% endif %}
+                                {% endwith %}
 
     <!-- banner part start-->
     <section class="banner_part">
@@ -18,7 +27,7 @@
             </div>
         </div>
         <div class="banner_img">
-            <img src="{{ url_for('static', filename='img/logopic.jpg') }}" alt="#" class="img-fluid">
+            <img src="{{ url_for('static', filename='img/pic8.jpg') }}" alt="#" class="img-fluid">
             <img src="{{ url_for('static', filename='img/banner_pattern.png') }}" alt="#" class="pattern_img img-fluid">
         </div>
     </section>
