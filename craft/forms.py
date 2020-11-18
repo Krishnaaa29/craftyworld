@@ -49,10 +49,9 @@ class UpdateAccountForm(FlaskForm):
 class ProductsForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
     price = StringField('Price', validators=[DataRequired()])
-    picture = FileField('Picture', validators=[FileAllowed('jpg','png'), FileRequired('choose a file!')])
+    image_file = FileField('Picture', validators=[FileAllowed('jpg','png'), FileRequired('choose a file!')])
     description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
     stock = StringField('Stock', validators=[DataRequired()])
-    category = StringField('Category', validators=[DataRequired(), Length(min=2, max=20)])
     
     submit = SubmitField('Add')
     

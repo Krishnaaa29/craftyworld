@@ -1,6 +1,9 @@
-from craft import db, login_manager,admin
+from craft import db, login_manager,admin, app, file_path
 from flask_login import UserMixin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.fileadmin import FileAdmin
+from flask_admin import form
+from flask_admin.contrib import sqla
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -29,13 +32,13 @@ class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
     price = db.Column(db.Integer, nullable=False)
-    picture = db.Column(db.String(60), nullable=False)
+    image_file = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(60), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    category = db.Column(db.String, nullable=False)
+
 
     def __repr__(self):
-        return f"Products('{self.name}', '{self.price}','{self.picture}','{self.description}','{self.stock}','{self.category}')"
+        return f"Products('{self.name}', '{self.price}','{self.image_file}','{self.description}','{self.stock}')"
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +56,20 @@ class Order(db.Model):
     def __repr__(self):
         return f"Order('{self.products_id}','{self.users_id}','{self.name}', '{self.email}','{self.address_line1}','{self.address_line2}','{self.pincode}','{self.city},'{self.state},'{self.country},'{self.mobile}')"
        
+class FileView(sqla.ModelView):
+    form_overrides = {
+        'image_file' : form.FileUploadField
+    }
+
+    form_args = {
+        'image_file' : {
+            'label' : 'Image' ,
+            'base_path' : file_path,
+            'allow_overwrite' : False
+        }
+    }
+
+admin.add_view(FileView(Products,db.session))     
 admin.add_view(ModelView(Users,db.session))
-admin.add_view(ModelView(Products,db.session))
+# admin.add_view(ModelView(Products,db.session))
 admin.add_view(ModelView(Order,db.session))
