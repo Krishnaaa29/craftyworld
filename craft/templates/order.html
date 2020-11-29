@@ -15,39 +15,33 @@
     </section>
     <!-- breadcrumb part end-->
 
-  <section class="login_part section_padding ">
+  <section class="login_part py-4">
         <div class="container">
             <div class="row align-items-center">
+                <div class="col-md-12 px-0 py-0">
+                    <h2 class="text-center">Order Details</h2>
+                </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="login_part_text text-center">
                         <div class="login_part_text_iner">
-                            <h2>Creativity Is Our Passion</h2>
-                            <p>““The best craftsmanship always leaves holes and gaps… so that something that is not in the poem can creep, crawl, flash or thunder in.” 
-                            
-                            
-                            – Dylan Thomas</p>
-                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card border-0" style="background: none;">
+                                    <img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="">
+                                        <div class="card-body">
+                                        <h3 class="card-title text-white">{{ products.name }}</h3>
+                                            <p class="crad-text">{{ products.price }}</p>
+                                            <p class="crad-text">{{ products.description }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="login_part_form">
                         <div class="login_part_form_iner">
-                            <h3>Order Now</h3>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card">
-                                <img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="">
-                                    <div class="card-body">
-                                    <h3 class="card-title">{{ products.name }}</h3>
-                                        <p class="crad-text">{{ products.price }}</p>
-                                        <p class="crad-text">{{ products.description }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                             {% with messages = get_flashed_messages(with_categories=true) %}
                                     {% if messages %}
                                         {% for category, message in messages %}
@@ -179,7 +173,7 @@
                                 <div class="col-md-12 form-group">
                                    
                                     <button type="submit" value="submit" class="btn_3">
-                                       Submit
+                                       Place Order
                                     </button>
                                     
                                 </div>

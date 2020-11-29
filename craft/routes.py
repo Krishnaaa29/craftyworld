@@ -114,7 +114,9 @@ def view():
 
 @app.route("/orderview")
 def orderview():
-    orders = Order.query.filter_by(users_id=current_user.id).all()
+    #orders = Order.query.filter_by(users_id=current_user.id).all()
+    orders = db.session.query(Order, Products).outerjoin(Products, Order.products_id == Products.id).add_columns(Order.id, Order.email, Order.address_line1, Order.pincode, Order.city, Order.state, Order.country, Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.users_id == current_user.id).all()
+    #orders = Order.query.join(Products, Order.id==Products.id).add_columns(Order.id, Order.email, Order.address_line1, Order.pincode, Order.city, Order.state, Order.country, Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.products_id == Products.id).filter(Order.users_id == current_user.id).all()
     return render_template('orderview.html', orders=orders)
 
 @app.route("/order/<int:order_id>/delete", methods=['POST'])

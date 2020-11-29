@@ -19,9 +19,9 @@
         <div class="row">
         {% for products in products %}
         
-            <div class="col-md-3">
+            <div class="col-md-3 my-2">
                 <div class="card">
-                    <img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="">
+                    <img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="" style="height: 200px; object-fit: cover; object-position: center center;">
                     <div class="card-body">
                         <h3 class="card-title">{{ products.name }}</h3>
                         <p class="crad-text">{{ products.price }}</p>
