@@ -35,14 +35,14 @@ class Products(db.Model):
     image_file = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(60), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-
+    Orders = db.relationship('Order', backref='Products', lazy=True)
 
     def __repr__(self):
         return f"Products('{self.name}', '{self.price}','{self.image_file}','{self.description}','{self.stock}')"
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    products_id = db.Column(db.Integer)
+    products_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     users_id = db.Column(db.Integer)
     name = db.Column(db.String(60), nullable=False)
     email = db.Column(db.String(60), nullable=False)
