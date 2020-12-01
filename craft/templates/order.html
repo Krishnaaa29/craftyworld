@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12 px-0 py-0">
-                    <h2 class="text-center">Order Details</h2>
+                    <h2 class="text-center"></h2>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="login_part_text text-center">
@@ -66,45 +66,21 @@
                                             {{ form.name(class="form-control border border-secondary rounded", placeholder="") }}
                                         {% endif %} 
                                 </div>
-                                <div class="col-md-12 form-group p_star">
-                                   {{ form.email.label(class="") }}
-                                        {% if form.email.errors %}
-                                            {{ form.email(class="form-control border border-danger rounded") }}
-                                            <div class="text-danger">
-                                                {% for error in form.email.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.email(class="form-control border border-secondary rounded", placeholder="") }}
-                                        {% endif %} 
-                                </div>
+                                
                                  <div class="col-md-12 form-group p_star">
-                                    {{ form.address_line1.label(class="") }}
-                                        {% if form.address_line1.errors %}
-                                            {{ form.address_line1(class="form-control border border-danger rounded") }}
+                                    {{ form.address.label(class="") }}
+                                        {% if form.address.errors %}
+                                            {{ form.address(class="form-control border border-danger rounded") }}
                                             <div class="text-danger">
-                                                {% for error in form.address_line1.errors %}
+                                                {% for error in form.address.errors %}
                                                     <span>{{ error }}</span>
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.address_line1(class="form-control border border-secondary rounded", placeholder="") }}
+                                            {{ form.address(class="form-control border border-secondary rounded", placeholder="") }}
                                         {% endif %} 
                                 </div>
-                                 <div class="col-md-12 form-group p_star">
-                                    {{ form.address_line2.label(class="") }}
-                                        {% if form.address_line2.errors %}
-                                            {{ form.address_line2(class="form-control border border-danger rounded") }}
-                                            <div class="text-danger">
-                                                {% for error in form.address_line2.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.address_line2(class="form-control border border-secondary rounded", placeholder="") }}
-                                        {% endif %} 
-                                </div>
+                                 
                                 <div class="col-md-12 form-group p_star">
                                    {{ form.pincode.label(class="") }}
                                         {% if form.pincode.errors %}
@@ -144,19 +120,7 @@
                                             {{ form.state(class="form-control border border-secondary rounded", placeholder="") }}
                                         {% endif %} 
                                 </div>
-                                 <div class="col-md-12 form-group p_star">
-                                    {{ form.country.label(class="") }}
-                                        {% if form.country.errors %}
-                                            {{ form.country(class="form-control border border-danger rounded") }}
-                                            <div class="text-danger">
-                                                {% for error in form.country.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.country(class="form-control border border-secondary rounded", placeholder="") }}
-                                        {% endif %} 
-                                </div>
+                                 
                                  <div class="col-md-12 form-group p_star">
                                    {{ form.mobile.label(class="") }}
                                         {% if form.mobile.errors %}
@@ -170,6 +134,7 @@
                                             {{ form.mobile(class="form-control border border-secondary rounded", placeholder="") }}
                                         {% endif %} 
                                 </div>
+                                {{ form.status() }}
                                 <div class="col-md-12 form-group">
                                    
                                     <button type="submit" value="submit" class="btn_3">

@@ -45,16 +45,14 @@ class Order(db.Model):
     products_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
     users_id = db.Column(db.Integer)
     name = db.Column(db.String(60), nullable=False)
-    email = db.Column(db.String(60), nullable=False)
-    address_line1 = db.Column(db.String(60), nullable=False)
-    address_line2 = db.Column(db.String(60), nullable=False)
+    address = db.Column(db.String(60), nullable=False)
     pincode = db.Column(db.Integer, nullable=False)
     city = db.Column(db.String(60), nullable=False)
     state = db.Column(db.String(60), nullable=False)
-    country = db.Column(db.String, nullable=False)
     mobile = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.String(60), nullable=False)
     def __repr__(self):
-        return f"Order('{self.products_id}','{self.users_id}','{self.name}', '{self.email}','{self.address_line1}','{self.address_line2}','{self.pincode}','{self.city},'{self.state},'{self.country},'{self.mobile}')"
+        return f"Order('{self.products_id}','{self.users_id}','{self.name}','{self.address}','{self.pincode}','{self.city},'{self.state},'{self.mobile}','{self.status}')"
        
 class FileView(sqla.ModelView):
     form_overrides = {
@@ -68,8 +66,20 @@ class FileView(sqla.ModelView):
             'allow_overwrite' : False
         }
     }
+    form_excluded_columns = ['Orders']
 
+class StatusView(sqla.ModelView):
+    
+    form_choices = {
+        'status' : [
+            ('Order Placed','Order Placed'),
+            ('Order Processing','Order Processing'),
+            ('Order Shipped','Order Shipped'),
+            ('Order Delivered','Order Delivered')
+        ]
+    }
+admin.add_view(StatusView(Order,db.session))
 admin.add_view(FileView(Products,db.session))     
 admin.add_view(ModelView(Users,db.session))
 # admin.add_view(ModelView(Products,db.session))
-admin.add_view(ModelView(Order,db.session))
+#admin.add_view(ModelView(Order,db.session))

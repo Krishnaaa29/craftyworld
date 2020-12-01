@@ -10,15 +10,16 @@
                     <img src="{{ url_for('static', filename='productpic/'+orders.image_file)}}" style="height: 200px;" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{ orders.name }}</h3>
-                        <p class="card-title">{{ orders.email }}</p>
-                        <p class="card-title">{{ orders.address_line1 }}</p>
+                        <p class="card-title">{{ orders.address }}</p>
                         <p class="card-title">{{ orders.pincode }}</p>
                         <p class="card-title">{{ orders.city }}</p>
                         <p class="card-title">{{ orders.state }}</p>
-                        <p class="card-title">{{ orders.country }}</p>
                         <p class="card-title">{{ orders.mobile }}</p>
+                        <p class="card-title">{{ orders.status }}</p>
                         <form action="{{ url_for('orderdelete', order_id=orders.id) }}" method="POST">
+                            {% if orders.status != 'Order Delivered' %}
                             <input class="btn btn-danger" type="submit" value="Cancel Order">
+                            {% endif %}
                         </form>
                          
                     </div>

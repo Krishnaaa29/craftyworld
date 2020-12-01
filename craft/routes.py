@@ -90,7 +90,7 @@ def order(pid):
     if form.validate_on_submit():
      
         # insertion operation
-        order =  Order(products_id=id,users_id=current_user.id,name=form.name.data, email=form.email.data, address_line1=form.address_line1.data, address_line2=form.address_line2.data, pincode=form.pincode.data, city=form.city.data, state=form.state.data, country=form.country.data, mobile=form.mobile.data)
+        order =  Order(products_id=id,users_id=current_user.id,name=form.name.data, address=form.address.data, pincode=form.pincode.data, city=form.city.data, state=form.state.data, mobile=form.mobile.data, status=form.status.data)
         # if req is post,then insert title and content into db,for dat we assign those in new content
         products.stock = products.stock-1
         try:
@@ -115,8 +115,8 @@ def view():
 @app.route("/orderview")
 def orderview():
     #orders = Order.query.filter_by(users_id=current_user.id).all()
-    orders = db.session.query(Order, Products).outerjoin(Products, Order.products_id == Products.id).add_columns(Order.id, Order.email, Order.address_line1, Order.pincode, Order.city, Order.state, Order.country, Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.users_id == current_user.id).all()
-    #orders = Order.query.join(Products, Order.id==Products.id).add_columns(Order.id, Order.email, Order.address_line1, Order.pincode, Order.city, Order.state, Order.country, Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.products_id == Products.id).filter(Order.users_id == current_user.id).all()
+    orders = db.session.query(Order, Products).outerjoin(Products, Order.products_id == Products.id).add_columns(Order.id, Order.address , Order.pincode, Order.city, Order.state, Order.mobile, Order.status, Products.name, Products.price, Products.image_file).filter(Order.users_id == current_user.id).all()
+    #orders = Order.query.join(Products, Order.id==Products.id).add_columns(Order.id, Order.address, Order.pincode, Order.city, Order.state,  Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.products_id == Products.id).filter(Order.users_id == current_user.id).all()
     return render_template('orderview.html', orders=orders)
 
 @app.route("/order/<int:order_id>/delete", methods=['POST'])
