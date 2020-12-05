@@ -16,7 +16,7 @@
                         <p class="card-title">{{ orders.state }}</p>
                         <p class="card-title">{{ orders.mobile }}</p>
                         <p class="card-title">{{ orders.status }}</p>
-                        <form action="{{ url_for('orderdelete', order_id=orders.id) }}" method="POST">
+                        <form action="{{ url_for('orders.orderdelete', order_id=orders.id) }}" method="POST">
                             {% if orders.status != 'Order Delivered' %}
                             <input class="btn btn-danger" type="submit" value="Cancel Order">
                             {% endif %}

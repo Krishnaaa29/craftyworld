@@ -1,9 +1,12 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from craft.models import Users,Products,Order
+from craft.models import Users
+
+
+
+
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -45,34 +48,3 @@ class UpdateAccountForm(FlaskForm):
             user = Users.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('This email is taken, please choose a different one')
-
-class ProductsForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
-    price = StringField('Price', validators=[DataRequired()])
-    image_file = FileField('Picture', validators=[FileAllowed('jpg','png'), FileRequired('choose a file!')])
-    description = StringField('Description', validators=[DataRequired(), Length(min=2, max=20)])
-    stock = StringField('Stock', validators=[DataRequired()])
-    
-    submit = SubmitField('Add')
-    
-    
-
-    def validate_name(self, name):
-        product = Products.query.filter_by(name=name.data).first()
-        if product:
-            raise ValidationError('This name is taken, please choose a different one')
-
-class OrderForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
-    address = StringField('Address', validators=[DataRequired(), Length(min=2, max=20)])
-    pincode = StringField('Pincode', validators=[DataRequired()])
-    city = StringField('City', validators=[DataRequired()])
-    state = StringField('State', validators=[DataRequired()])
-    mobile = StringField('Mobile', validators=[DataRequired(),Length(min=10, max=12)])
-    status = HiddenField(default='Order Placed')
-    submit = SubmitField('Order')
-    
-
-
-
-

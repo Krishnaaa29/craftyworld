@@ -26,7 +26,7 @@
                         <h3 class="card-title">{{ products.name }}</h3>
                         <p class="crad-text">{{ products.price }}</p>
                         {% if products.stock > 0 %}
-                        <a href="{{ url_for('order',pid=products.id) }}" class="btn btn-primary">Buy Now</a>
+                        <a href="{{ url_for('orders.order',pid=products.id) }}" class="btn btn-primary">Buy Now</a>
                         {% else %}
                         <button type="button" class="btn btn-outline-danger" disabled>Out Of Stock</button>
                         {% endif %}
