@@ -51,11 +51,15 @@ def orderview():
 @orders.route("/order/<int:order_id>/delete", methods=['POST'])
 @login_required
 def orderdelete(order_id):
+    
     orders = Order.query.get_or_404(order_id)
     if orders.users_id != current_user.id:
         abort(403)
+    products = Products.query.first()
+    products.stock = products.stock+1
     db.session.delete(orders)
     db.session.commit()
+    
     flash('Your Order has been deleted!', 'success')
     return redirect(url_for('main.home'))
     flash('Your Order has been deleted!', 'success')

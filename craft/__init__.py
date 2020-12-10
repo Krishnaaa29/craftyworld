@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_admin import Admin
+
 import os.path as op
 from craft.config import Config
 
@@ -14,7 +14,7 @@ app.secret_key = 'hello'
 
 db = SQLAlchemy(app)
 
-admin = Admin(app) 
+
 
 file_path = op.join(op.dirname(__file__), 'static/productpic')
 try:
@@ -36,3 +36,5 @@ app.register_blueprint(user)
 app.register_blueprint(product)
 app.register_blueprint(orders)
 app.register_blueprint(main)
+
+from craft import route

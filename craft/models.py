@@ -1,9 +1,6 @@
-from craft import db, login_manager,admin, app, file_path
+from craft import db, login_manager, app
 from flask_login import UserMixin
-from flask_admin.contrib.sqla import ModelView
-from flask_admin.contrib.fileadmin import FileAdmin
-from flask_admin import form
-from flask_admin.contrib import sqla
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -54,32 +51,14 @@ class Order(db.Model):
     def __repr__(self):
         return f"Order('{self.products_id}','{self.users_id}','{self.name}','{self.address}','{self.pincode}','{self.city},'{self.state},'{self.mobile}','{self.status}')"
        
-class FileView(sqla.ModelView):
-    form_overrides = {
-        'image_file' : form.FileUploadField
-    }
 
-    form_args = {
-        'image_file' : {
-            'label' : 'Image' ,
-            'base_path' : file_path,
-            'allow_overwrite' : False
-        }
-    }
-    form_excluded_columns = ['Orders']
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), nullable=False)
+    email = db.Column(db.String(60), unique=True, nullable=False)
+    message = db.Column(db.String(60), nullable=False)
 
-class StatusView(sqla.ModelView):
-    
-    form_choices = {
-        'status' : [
-            ('Order Placed','Order Placed'),
-            ('Order Processing','Order Processing'),
-            ('Order Shipped','Order Shipped'),
-            ('Order Delivered','Order Delivered')
-        ]
-    }
-admin.add_view(StatusView(Order,db.session))
-admin.add_view(FileView(Products,db.session))     
-admin.add_view(ModelView(Users,db.session))
-# admin.add_view(ModelView(Products,db.session))
-#admin.add_view(ModelView(Order,db.session))
+    def __repr__(self):
+        return f"Feedback('{self.name}', '{self.email}', '{self.message}')"
+
+

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect, Blueprint
 from craft import app, db, bcrypt
-from craft.user.forms import RegistrationForm, LoginForm, UpdateAccountForm
-from craft.models import Users
+from craft.user.forms import RegistrationForm, LoginForm, UpdateAccountForm, FeedbackForm
+from craft.models import Users, Feedback
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -65,3 +65,13 @@ def youraccount():
     return render_template('youraccount.html', titl='Update', form=form)
 
 
+@user.route("/feedback", methods=['GET', 'POST'])
+def feedback():
+    form = FeedbackForm()
+    if form.validate_on_submit():
+        feedback = Feedback(name=form.name.data, email=form.email.data, message=form.message.data)
+        db.session.add(feedback)
+        db.session.commit()
+        flash('Your feedback has been submitted!', 'success')
+        return redirect(url_for('main.home'))
+    return render_template('contact.html', title='New Feedback', form=form)
