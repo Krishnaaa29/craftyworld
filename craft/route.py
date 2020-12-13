@@ -41,6 +41,15 @@ class StatusView(sqla.ModelView):
         ]
     }
 
+    can_create = False
+    can_delete = False
+
+class FeedbackView(sqla.ModelView):
+    
+
+    can_create = False 
+    can_edit = False
+
 class SecureModelView(ModelView):
     def is_accessible(self):
         if "logged_in" in session:
@@ -53,8 +62,8 @@ class SecureModelView(ModelView):
 admin.add_view(StatusView(Order,db.session))
 admin.add_view(FileView(Products,db.session))     
 admin.add_view(ModelView(Users,db.session))
-admin.add_view(ModelView(Feedback,db.session))
-# admin.add_view(ModelView(Products,db.session))
+admin.add_view(FeedbackView(Feedback,db.session))
+#admin.add_view(ModelView(Products,db.session))
 #admin.add_view(ModelView(Order,db.session))
 
 @app.route("/adminlogout")

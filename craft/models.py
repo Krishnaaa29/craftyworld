@@ -55,7 +55,7 @@ class Order(db.Model):
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
-    email = db.Column(db.String(60), unique=True, nullable=False)
+    email = db.Column(db.String(60), nullable=False)
     message = db.Column(db.String(60), nullable=False)
 
     def __repr__(self):

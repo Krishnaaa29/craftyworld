@@ -55,7 +55,7 @@ def orderdelete(order_id):
     orders = Order.query.get_or_404(order_id)
     if orders.users_id != current_user.id:
         abort(403)
-    products = Products.query.first()
+    products = Products.query.filter_by(id=orders.products_id).first()
     products.stock = products.stock+1
     db.session.delete(orders)
     db.session.commit()
