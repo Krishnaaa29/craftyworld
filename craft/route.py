@@ -5,6 +5,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin import form
 from flask_admin.contrib import sqla
+from flask_admin.menu import MenuLink
 from craft.models import Users,Feedback,Products,Order
 
 
@@ -57,11 +58,15 @@ class SecureModelView(ModelView):
         else:
             abort(403)
 
+class UsersView(sqla.ModelView): 
+    column_exclude_list = ('password')
+   
+logout_link = MenuLink('Logout','/logout','logout')
 
-
+admin.add_link(logout_link)
 admin.add_view(StatusView(Order,db.session))
 admin.add_view(FileView(Products,db.session))     
-admin.add_view(ModelView(Users,db.session))
+admin.add_view(UsersView(Users,db.session))
 admin.add_view(FeedbackView(Feedback,db.session))
 #admin.add_view(ModelView(Products,db.session))
 #admin.add_view(ModelView(Order,db.session))
