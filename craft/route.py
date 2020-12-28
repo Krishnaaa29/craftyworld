@@ -7,14 +7,12 @@ from flask_admin import form
 from flask_admin.contrib import sqla
 from flask_admin.menu import MenuLink
 from craft.models import Users,Feedback,Products,Order
+from jinja2 import Markup
 
 
+app.config['FLASK_ADMIN_SWATCH'] = 'slate'
 
-
-
-
-
-admin = Admin(app) 
+admin = Admin(app, name='Admin', template_mode='bootstrap3') 
 
 
 class FileView(sqla.ModelView):
@@ -31,6 +29,22 @@ class FileView(sqla.ModelView):
     }
     form_excluded_columns = ['Orders']
 
+    def _list_thumbnail(view, context, model, name):
+        if not model.image_file:
+            return ''
+        return Markup(
+            '<img src="%s" style="height:50px; width:50;">' %
+            url_for('static',
+                    filename='productpic/'+model.image_file)
+        )
+    column_formatters = {
+        'image_file': _list_thumbnail
+    }
+
+    #form_extra_fields =  {
+    #    'image_file': form.ImageUploadField('Image', base_path = file_path, thumbnail_size=(100,100, True))
+    #}
+    
 class StatusView(sqla.ModelView):
     
     form_choices = {
