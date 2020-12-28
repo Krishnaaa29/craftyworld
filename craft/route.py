@@ -75,7 +75,7 @@ class SecureModelView(ModelView):
 class UsersView(sqla.ModelView): 
     column_exclude_list = ('password')
    
-logout_link = MenuLink('Logout','/logout','logout')
+logout_link = MenuLink('Logout','/adminlogout','adminlogout')
 
 admin.add_link(logout_link)
 admin.add_view(StatusView(Order,db.session))
@@ -88,7 +88,7 @@ admin.add_view(FeedbackView(Feedback,db.session))
 @app.route("/adminlogout")
 def adminlogout():
     session.clear()
-    return redirect("/")
+    return redirect("/adminlogin")
 
 @app.route("/adminlogin", methods=['GET', 'POST'])
 def adminlogin():
