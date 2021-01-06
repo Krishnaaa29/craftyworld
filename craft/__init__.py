@@ -31,6 +31,7 @@ from craft.user.routes import user
 from craft.product.routes import product
 from craft.orders.routes import orders
 from craft.main.routes import main
+from craft.carts import carts
 
 app.register_blueprint(user)
 app.register_blueprint(product)

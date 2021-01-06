@@ -1,6 +1,6 @@
 ﻿{% extends 'base.html' %}
 {% block content %}
-
+    
                            
      <!-- breadcrumb part start-->
     <section class="breadcrumb_part">
@@ -15,21 +15,41 @@
         </div>
     </section>
     <!-- breadcrumb part end-->
+   {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor%}
+                                    {% endif %}
+                                {% endwith %}
     <div class="container">
+    
         <div class="row">
+         
         {% for products in products %}
         
             <div class="col-md-3 my-2">
                 <div class="card">
                     <img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="" style="height: 200px; object-fit: cover; object-position: center center;">
+                    <a href="{{url_for('product.single_page',pid=products.id)}}">
                     <div class="card-body">
-                        <h3 class="card-title">{{ products.name }}</h3>
-                        <p class="crad-text">{{ products.price }}</p>
+                        <h3 class="text-center">{{ products.name }}</h3>
+                        <p class="text-center">₹{{ products.price }}</p>
+                    </div>
+                    </a>
+                    <div class="card-footer px-5">
                         {% if products.stock > 0 %}
-                        <a href="{{ url_for('orders.order',pid=products.id) }}" class="btn btn-primary">Buy Now</a>
+                        <form action="{{url_for('AddCart')}}" method="POST">
+                            <input type="hidden" name="product_id" value="{{products.id}}">
+                            <button type="submit" class="float-center btn btn-sm btn-warning">Add Cart</button>
+                            <input type="hidden" name="quantity"  value="1">
+                            <a href="{{ url_for('orders.order', pid=products.id) }}" class="float-right btn btn-sm btn-primary">Buy Now</a>
+                        </form>
                         {% else %}
                         <button type="button" class="btn btn-outline-danger" disabled>Out Of Stock</button>
-                        {% endif %}
+                        {% endif %}                      
                     </div>
                 </div>
             </div>

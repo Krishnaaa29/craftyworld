@@ -74,6 +74,8 @@ class SecureModelView(ModelView):
 
 class UsersView(sqla.ModelView): 
     column_exclude_list = ('password')
+    can_create = False
+    can_edit = False
    
 logout_link = MenuLink('Logout','/adminlogout','adminlogout')
 

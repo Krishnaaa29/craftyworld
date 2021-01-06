@@ -12,3 +12,9 @@ product = Blueprint('product', __name__)
 def product_list():
     products = Products.query.all()
     return render_template('product_list.html', title='Product', products=products)
+
+@product.route('/product/<int:pid>')
+def single_page(pid):
+    id = pid 
+    products = Products.query.get_or_404(id)
+    return render_template('single_page.html', products=products)
