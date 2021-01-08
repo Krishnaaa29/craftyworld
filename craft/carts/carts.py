@@ -1,6 +1,8 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect, Blueprint
 from craft import app, db
-from craft.models import Products
+from craft.models import Products, CustomerOrder
+from flask_login import login_required, current_user
+import secrets
 
 
 def MagerDicts(dict1, dict2):
@@ -16,7 +18,7 @@ def AddCart():
         quantity = request.form.get('quantity')
         products = Products.query.filter_by(id=product_id).first()
         if product_id and quantity and request.method == "POST":
-            DictItems = {product_id:{'name':products.name, 'price':products.price, 'quantity':quantity, 'image_file':products.image_file}}
+            DictItems = {product_id:{'name':products.name, 'price':products.price, 'quantity':quantity, 'image_file':products.image_file, 'stock':products.stock, 'product_id':product_id}}
             if 'ShoppingCart' in session:
                 print(session['ShoppingCart'])
                 if product_id in session['ShoppingCart']:
@@ -77,3 +79,28 @@ def deleteitem(id):
     except Exception as e:
         print(e)
         return redirect(url_for('getCart')) 
+
+# cart order
+@app.route('/getorder', methods=['POST'])
+@login_required
+def get_order():
+    customer_id = current_user.id
+    invoice = secrets.token_hex(5)
+    name = request.form['name'] 
+    address = request.form['address'] 
+    pincode = request.form['pincode'] 
+    city = request.form['city']
+    state = request.form['state']
+    mobile = request.form['mobile']
+    try:
+        order = CustomerOrder(invoice=invoice, customer_id=customer_id, orders=session['ShoppingCart'], name=name, address=address, pincode=pincode, city=city, state=state, mobile=mobile)
+        db.session.add(order)
+        db.session.commit()
+        session.pop('ShoppingCart')
+        flash('Your order has been submit successfully','success')
+        return redirect(url_for('getCart'))
+    except Exception as e:
+        print(e)
+        flash('Some thing went wrong while get order','danger')
+        return redirect(url_for('getCart')) 
+

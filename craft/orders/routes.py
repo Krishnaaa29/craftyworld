@@ -1,12 +1,8 @@
 from flask import render_template, url_for, request, redirect, session, flash, redirect, Blueprint
 from craft import app, db, bcrypt
 from craft.orders.forms import OrderForm
-from craft.models import Order,Products
+from craft.models import CustomerOrder,Products
 from flask_login import login_user, current_user, logout_user, login_required
-
-
-
-
 
 orders = Blueprint('orders', __name__)
 
@@ -34,7 +30,6 @@ def order(pid):
         #task = Order.query.all()
         products = Products.query.filter_by(id=pid).first()
         return render_template('order.html', products=products, form=form)
-            
 
 @orders.route("/view")
 def view():
@@ -43,11 +38,13 @@ def view():
 
 @orders.route("/orderview")
 def orderview():
-    #orders = Order.query.filter_by(users_id=current_user.id).all()
-    orders = db.session.query(Order, Products).outerjoin(Products, Order.products_id == Products.id).add_columns(Order.id, Order.address , Order.pincode, Order.city, Order.state, Order.mobile, Order.status, Products.name, Products.price, Products.image_file).filter(Order.users_id == current_user.id).all()
+    orders = CustomerOrder.query.filter_by(customer_id=current_user.id).all()
+    subtotal = 0
+    grandtotal = 0
+    #orders = db.session.query(Order, Products).outerjoin(Products, Order.products_id == Products.id).add_columns(Order.id, Order.address , Order.pincode, Order.city, Order.state, Order.mobile, Order.status, Products.name, Products.price, Products.image_file).filter(Order.users_id == current_user.id).all()
     #orders = Order.query.join(Products, Order.id==Products.id).add_columns(Order.id, Order.address, Order.pincode, Order.city, Order.state,  Order.mobile, Products.name, Products.price, Products.image_file).filter(Order.products_id == Products.id).filter(Order.users_id == current_user.id).all()
-    return render_template('orderview.html', orders=orders)
-
+    return render_template('orderview.html', orders=orders, subtotal=subtotal, grandtotal=grandtotal)
+"""
 @orders.route("/order/<int:order_id>/delete", methods=['POST'])
 @login_required
 def orderdelete(order_id):
@@ -63,3 +60,13 @@ def orderdelete(order_id):
     flash('Your Order has been deleted!', 'success')
     return redirect(url_for('main.home'))
     flash('Your Order has been deleted!', 'success')
+"""
+
+@orders.route('/deleteorder/<int:order_id>', methods=['POST'])
+@login_required
+def deleteorder(order_id):
+    orders = CustomerOrder.query.filter_by(id=order_id).first()
+    db.session.delete(orders)
+    db.session.commit()
+    flash('Your Order has been deleted!', 'success')
+    return redirect(url_for('orders.orderview'))

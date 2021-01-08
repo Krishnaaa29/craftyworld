@@ -6,7 +6,7 @@ from flask_admin.contrib.fileadmin import FileAdmin
 from flask_admin import form
 from flask_admin.contrib import sqla
 from flask_admin.menu import MenuLink
-from craft.models import Users,Feedback,Products,Order
+from craft.models import Users,Feedback,Products,Order, CustomerOrder
 from jinja2 import Markup
 
 
@@ -80,7 +80,7 @@ class UsersView(sqla.ModelView):
 logout_link = MenuLink('Logout','/adminlogout','adminlogout')
 
 admin.add_link(logout_link)
-admin.add_view(StatusView(Order,db.session))
+admin.add_view(StatusView(CustomerOrder,db.session))
 admin.add_view(FileView(Products,db.session))     
 admin.add_view(UsersView(Users,db.session))
 admin.add_view(FeedbackView(Feedback,db.session))

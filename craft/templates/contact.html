@@ -46,7 +46,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.name(class="form-control border border-secondary rounded", placeholder="Your name") }}
+                                            {{ form.name(class="form-control border border-secondary rounded", style="height:42px;", placeholder="Your name") }}
                                         {% endif %} 
                                     </div>
                                   </div>
@@ -61,7 +61,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.email(class="form-control border border-secondary rounded", placeholder="Your Email") }}
+                                            {{ form.email(class="form-control border border-secondary rounded",style="height:42px;", placeholder="Your Email") }}
                                         {% endif %} 
                                     </div>
                                   </div>
@@ -76,7 +76,7 @@
                                                 {% endfor %}
                                             </div>
                                         {% else %}
-                                            {{ form.message(class="form-control border border-secondary rounded", placeholder="Your message") }}
+                                            {{ form.message(class="form-control border border-secondary rounded", rows=8, placeholder="Your message") }}
                                         {% endif %} 
                                     </div>
                                   </div>
@@ -88,36 +88,31 @@
                             </form>
                             
                         </div>
+                        <div class="col-lg-4 my-auto">
+                            <div class="media contact-info">
+                              <span class="contact-info__icon"><i class="ti-home"></i></span>
+                              <div class="media-body">
+                                <h3>Crafty World, Calicut</h3>
+                                <p>Kulathur, CA 91770</p>
+                              </div>
+                            </div>
+                            <div class="media contact-info">
+                              <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                              <div class="media-body">
+                                <h3>0498 2587542</h3>
+                                <p>Mon to Fri 9am to 6pm</p>
+                              </div>
+                            </div>
+                            <div class="media contact-info">
+                              <span class="contact-info__icon"><i class="ti-email"></i></span>
+                              <div class="media-body">
+                                <h3>craftyworld@gmail.com</h3>
+                                <p>Send us your query anytime!</p>
+                              </div>
+                            </div>
+                          </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="media contact-info">
-            <span class="contact-info__icon"><i class="ti-home"></i></span>
-            <div class="media-body">
-              <h3>Crafty World, Calicut</h3>
-              <p>Kulathur, CA 91770</p>
-            </div>
-          </div>
-          <div class="media contact-info">
-            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
-            <div class="media-body">
-              <h3>0498 2587542</h3>
-              <p>Mon to Fri 9am to 6pm</p>
-            </div>
-          </div>
-          <div class="media contact-info">
-            <span class="contact-info__icon"><i class="ti-email"></i></span>
-            <div class="media-body">
-              <h3>craftyworld@gmail.com</h3>
-              <p>Send us your query anytime!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     </section>
 
 
