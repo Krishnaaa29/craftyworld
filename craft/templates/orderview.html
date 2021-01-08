@@ -1,31 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endfor%}
+{% endif %}
+{% endwith %}
     <div class="container">
         <div class="row">
-        {% for orders in orders %}
-        
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='productpic/'+orders.image_file)}}" style="height: 200px;" alt="">
-                    <div class="card-body">
-                        <h3 class="card-title">{{ orders.name }}</h3>
-                        <p class="card-title">{{ orders.address }}</p>
-                        <p class="card-title">{{ orders.pincode }}</p>
-                        <p class="card-title">{{ orders.city }}</p>
-                        <p class="card-title">{{ orders.state }}</p>
-                        <p class="card-title">{{ orders.mobile }}</p>
-                        <p class="card-title">{{ orders.status }}</p>
-                        <form action="{{ url_for('orders.orderdelete', order_id=orders.id) }}" method="POST">
-                            {% if orders.status != 'Order Delivered' %}
-                            <input class="btn btn-danger" type="submit" value="Cancel Order">
-                            {% endif %}
-                        </form>
-                         
-                    </div>
-                </div>
+            {% for orders in orders %}
+            <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded px-4 py-4 my-2">
+            <div class="float-left">
+                <h5><b class="text-dark">Shipping Details</b></h5>
+                <p>{{orders.name}}</p>
+                <p>{{orders.address}}</p>
+                <p>{{orders.city}}</p>
+                <p>{{orders.state}}</p>
+                <p>{{orders.pincode}}</p>
+                <br>
+                <p><b>Invoice : </b><small>{{orders.invoice}}</small></p>
+                <p><b>Contact No. : </b><small>{{orders.mobile}}</small></p>
+                <p><b>Order Status : </b><small>{{orders.status}}</small></p>
             </div>
-        {% endfor %}
+            <table class="table table-sm">
+                <thead>
+                    <th>No.</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                    {% for key , products in orders.orders.items() %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td><img src="{{ url_for('static', filename='productpic/'+products.image_file)}}" alt="{{ products.name }}" width="50" height="45"></td>
+                        <td>{{products.name}}</td>
+                        <td>₹{{products.price}}</td>
+                        <td>{{products.quantity}}</td>
+                        {% set total = products.quantity|int * products.price|float %}
+                        <td>{{total}}</td>
+                    </tr>   
+                    {% endfor %}  
+                </tbody>
+            </table> 
+            <table class="table table-sm">
+                <tr>  
+                    <td></td>
+                    <td width="35%"></td>
+                    <!--
+                    <td><h5>Tax : ₹{{tax}}</h4></td>
+                    <td><h5>Grand Total: ₹{{grandtotal}}</h4></td>
+                        -->
+                    <td>
+                        <form action="{{url_for('orders.deleteorder', order_id=orders.id)}}" method="POST">
+                            <input class="btn btn-sm btn-danger my-2" type="submit" value="Cancel Order">
+                        </form>
+                    </td>
+                </tr>
+            </table>  
+            </div>
+            {% endfor %}
         </div>
     </div> 
 

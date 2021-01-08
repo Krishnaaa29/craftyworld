@@ -45,7 +45,7 @@
                             <input type="hidden" name="product_id" value="{{products.id}}">
                             <button type="submit" class="float-center btn btn-sm btn-warning">Add Cart</button>
                             <input type="hidden" name="quantity"  value="1">
-                            <a href="{{ url_for('orders.order', pid=products.id) }}" class="float-right btn btn-sm btn-primary">Buy Now</a>
+                            <a href="{{url_for('product.single_page',pid=products.id)}}" class="float-right btn btn-sm btn-primary">Details</a>
                         </form>
                         {% else %}
                         <button type="button" class="btn btn-outline-danger" disabled>Out Of Stock</button>
