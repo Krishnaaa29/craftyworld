@@ -61,11 +61,19 @@ def orderdelete(order_id):
     return redirect(url_for('main.home'))
     flash('Your Order has been deleted!', 'success')
 """
+#stock management
+def stock_manage(orders):
+    for key in orders: 
+        q=orders[key]['quantity']
+        prd=Products.query.filter_by(id=key).first()
+        prd.stock = prd.stock+int(q)
+        db.session.commit()
 
 @orders.route('/deleteorder/<int:order_id>', methods=['POST'])
 @login_required
 def deleteorder(order_id):
     orders = CustomerOrder.query.filter_by(id=order_id).first()
+    stock_manage(orders.orders)
     db.session.delete(orders)
     db.session.commit()
     flash('Your Order has been deleted!', 'success')

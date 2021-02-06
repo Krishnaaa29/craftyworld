@@ -8506,7 +8506,7 @@ h6 {
 /************ about_us css end ***************/
 /* line 2, /Applications/MAMP/htdocs/old/palash/cl/shop_html/sass/_breadcrumb.scss */
 .breadcrumb_part {
-  height: 350px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -12,6 +12,12 @@
 {% endwith %}
     <div class="container">
         <div class="row">
+            {% if orders %}
+            {% else %}
+            <div class="col-lg-12">
+                <h4 class="text-center text-danger">You have no orders</h4>
+            </div>
+            {% endif %}
             {% for orders in orders %}
             <div class="col-lg-12 shadow p-3 mb-5 bg-white rounded px-4 py-4 my-2">
             <div class="float-left">

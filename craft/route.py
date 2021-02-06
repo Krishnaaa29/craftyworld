@@ -33,7 +33,7 @@ class FileView(sqla.ModelView):
         if not model.image_file:
             return ''
         return Markup(
-            '<img src="%s" style="height:50px; width:50;">' %
+            '<img src="%s" style="height:50px; width:50px;">' %
             url_for('static',
                     filename='productpic/'+model.image_file)
         )

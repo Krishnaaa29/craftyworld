@@ -80,6 +80,14 @@ def deleteitem(id):
         print(e)
         return redirect(url_for('getCart')) 
 
+#stock management
+def stock_manage(orders):
+    for key in orders: 
+        q=orders[key]['quantity']
+        prd=Products.query.filter_by(id=key).first()
+        prd.stock = prd.stock-int(q)
+        db.session.commit()
+
 # cart order
 @app.route('/getorder', methods=['POST'])
 @login_required
@@ -92,8 +100,11 @@ def get_order():
     city = request.form['city']
     state = request.form['state']
     mobile = request.form['mobile']
+    orders=session['ShoppingCart']
+    stock_manage(orders)
     try:
-        order = CustomerOrder(invoice=invoice, customer_id=customer_id, orders=session['ShoppingCart'], name=name, address=address, pincode=pincode, city=city, state=state, mobile=mobile)
+        order = CustomerOrder(invoice=invoice, customer_id=customer_id, orders=orders, name=name, address=address, pincode=pincode, city=city, state=state, mobile=mobile)
+        #return stock_manage(orders)
         db.session.add(order)
         db.session.commit()
         session.pop('ShoppingCart')
