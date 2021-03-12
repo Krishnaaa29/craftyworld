@@ -55,6 +55,10 @@ class StatusView(sqla.ModelView):
             ('Order Delivered','Order Delivered')
         ]
     }
+    # remove these fields from edit view
+    form_excluded_columns = ['customer_id','date_created','invoice','name','address','pincode','city','state','mobile']
+    # model field view in list view
+    #column_list = ('invoice', 'name')
 
     can_create = False
     can_delete = False

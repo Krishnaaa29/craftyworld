@@ -64,9 +64,11 @@
                     <td><h5>Grand Total: ₹{{grandtotal}}</h4></td>
                         -->
                     <td>
+                        {% if orders.status != 'Order Delivered' %}
                         <form action="{{url_for('orders.deleteorder', order_id=orders.id)}}" method="POST">
                             <input class="btn btn-sm btn-danger my-2" type="submit" value="Cancel Order">
                         </form>
+                        {% endif %}
                     </td>
                 </tr>
             </table>  
